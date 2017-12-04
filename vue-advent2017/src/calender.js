@@ -19,7 +19,7 @@ class CalenderShape {
     createjs.ColorPlugin.install()
   }
 
-  reset() {
+  _reset() {
     if (typeof this.stage === 'object') {
       this.stage.removeAllChildren()
       this.stage.clear()
@@ -28,15 +28,28 @@ class CalenderShape {
     createjs.Tween.removeAllTweens()
   }
 
+  _handleTick() {
+    this.stage.update()
+  }
+
+  _handleDown(event) {
+    moveDiff.x = this.stage.mouseX - this.container.x
+    moveDiff.y = this.stage.mouseY - this.container.y
+  }
+
+  _handleMove(event) {
+    this.setPos(this.stage.mouseX - moveDiff.x, this.stage.mouseY - moveDiff.y)
+  }
+
   destroy() {
-    this.reset()
+    this._reset()
   }
 
   load(el) {
-    this.reset()
+    this._reset()
     this.stage = new createjs.Stage(el)
 
-    createjs.Ticker.on('tick', this.handleTick, this)
+    createjs.Ticker.on('tick', this._handleTick, this)
     createjs.Ticker.addEventListener('tick', createjs.Tween)
     if (createjs.Touch.isSupported() === true) {
       createjs.Touch.enable(this.stage)
@@ -71,8 +84,8 @@ class CalenderShape {
     this.container.mouseChildren = false
     this.container.hitArea = hitArea
 
-    this.container.on('mousedown', this.handleDown, this)
-    this.container.on('pressmove', this.handleMove, this)
+    this.container.on('mousedown', this._handleDown, this)
+    this.container.on('pressmove', this._handleMove, this)
 
     // 月の名前
     this.textMonthName = new createjs.Text('', '40px ' + font.label)
@@ -127,19 +140,6 @@ class CalenderShape {
     throw new Error('ダウンロード出来ない環境でした…')
   }
 
-  handleTick() {
-    this.stage.update()
-  }
-
-  handleDown(event) {
-    moveDiff.x = this.stage.mouseX - this.container.x
-    moveDiff.y = this.stage.mouseY - this.container.y
-  }
-
-  handleMove(event) {
-    this.setPos(this.stage.mouseX - moveDiff.x, this.stage.mouseY - moveDiff.y)
-  }
-
   setPos(x, y) {
     this.container.x = x
     this.container.y = y
@@ -172,11 +172,11 @@ class CalenderShape {
 
   setBgColor(color, wday) {
     try {
-      if (!regexColor.test(color)) {
+      if (regexColor.test(color) !== true) {
         throw new Error('色の値が正しくありません')
       }
       days.forEach((item, idx) => {
-        if (!item.checkWeekDay(wday)) {
+        if (item.checkWeekDay(wday) !== true) {
           return false
         }
         item.setBgCrossFade(color)
@@ -188,11 +188,11 @@ class CalenderShape {
 
   setTextColor(color, wday) {
     try {
-      if (!regexColor.test(color)) {
+      if (regexColor.test(color) !== true) {
         throw new Error('色の値が正しくありません')
       }
       days.forEach(item => {
-        if (!item.checkWeekDay(wday)) {
+        if (item.checkWeekDay(wday) !== true) {
           return false
         }
         item.setTextCrossFade(color)
@@ -290,7 +290,7 @@ class CalenderCelShape {
   }
 
   setTextCrossFade(value) {
-    if (this.text.text) {
+    if (this.text.text !== ' ') {
       createjs.Tween.get(this.text).wait(this.row % 7 * 50)
         .to({ color: value }, 600, createjs.Ease.cubicOut)
     }
