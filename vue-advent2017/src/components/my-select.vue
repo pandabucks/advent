@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" tabindex="0" @focus="focus=true" @blur="focus=false" @keydown.prevent="move" :style="wrapperStyle">
+  <div class="wrapper" tabindex="0" @focus="focus=true" @blur="focus=false" @keydown.prevent="handleKeydown" :style="wrapperStyle">
     <div class="current" @click="focus=true">
       <slot>{{ value }}</slot>
     </div>
@@ -71,14 +71,24 @@ export default {
     isActive(value) {
       return this.value === value
     },
-    move(event) {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        const go = event.key === 'ArrowDown' ? +1 : -1
-        const nextIndex = this.index + go
-        if (nextIndex > -1 && nextIndex < this.computedOptions.length) {
-          const next = this.computedOptions[this.index + go]
-          this.$emit('input', next.value)
-        }
+    handleKeydown(event) {
+      switch (event.key) {
+        case 'ArrowDown':
+        case 'ArrowUp':
+          const go = event.key === 'ArrowDown' ? +1 : -1
+          const nextIndex = this.index + go
+          if (nextIndex > -1 && nextIndex < this.computedOptions.length) {
+            const next = this.computedOptions[this.index + go]
+            this.$emit('input', next.value)
+          }
+          break
+        case 'Enter':
+        case 'Escape':
+          this.focus = false
+          break
+        case 'Tab':
+          this.$el.blur()
+          break
       }
     },
     handleClick(value) {
