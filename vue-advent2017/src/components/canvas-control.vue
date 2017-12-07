@@ -42,7 +42,7 @@
 
 <script>
 import MySelect from './my-select.vue'
-import calender from '../calender.js'
+import calendar from '../calendar.js'
 import { defineFonts, defineImages, defaults, options } from '../configs.js'
 import { createRange } from '../utils.js'
 
@@ -72,31 +72,31 @@ export default {
   },
   watch: {
     fullDate([year, month]) {
-      calender.setDate(year, month)
+      calendar.setDate(year, month)
     },
     image(value) {
-      calender.setImage(value)
+      calendar.setImage(value)
     },
     font(value) {
-      calender.setFont(value)
+      calendar.setFont(value)
     },
     bgColor(value) {
-      calender.setBgColor(value, -1)
+      calendar.setBgColor(value, -1)
     },
     bgColorSun(value) {
-      calender.setBgColor(value, 0)
+      calendar.setBgColor(value, 0)
     },
     bgColorSat(value) {
-      calender.setBgColor(value, 6)
+      calendar.setBgColor(value, 6)
     },
     textColor(value) {
-      calender.setTextColor(value, -1)
+      calendar.setTextColor(value, -1)
     },
     textColorSun(value) {
-      calender.setTextColor(value, 0)
+      calendar.setTextColor(value, 0)
     },
     textColorSat(value) {
-      calender.setTextColor(value, 6)
+      calendar.setTextColor(value, 6)
     }
   },
   methods: {
@@ -109,7 +109,7 @@ export default {
     handleDownloadButtonClick() {
       if (window.confirm('現在の画像をファイルとして保存します')) {
         try {
-          calender.toDataURL(
+          calendar.toDataURL(
             blob => {
               const a = document.createElement('a')
               a.href = window.URL.createObjectURL(blob)

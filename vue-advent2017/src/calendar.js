@@ -12,7 +12,7 @@ const outColor = createjs.Graphics.getRGB(220, 220, 220, 0)
 const days = []
 const moveDiff = { x: 0, y: 0 }
 
-class CalenderShape {
+class CalendarShape {
 
   constructor() {
     createjs.Ticker.framerate = 20
@@ -108,7 +108,7 @@ class CalenderShape {
     this.container.addChild(this.textMonth)
 
     for (let idx = 0; idx < 42; idx++) {
-      const cel = new CalenderCelShape(idx)
+      const cel = new CalendarCelShape(idx)
       this.container.addChild(cel.bg)
       this.container.addChild(cel.text)
       days.push(cel)
@@ -233,7 +233,7 @@ class CalenderShape {
 
 }
 
-class CalenderCelShape {
+class CalendarCelShape {
 
   constructor(idx) {
     this.wday = idx % 7
@@ -297,4 +297,4 @@ class CalenderCelShape {
   }
 }
 
-export default new CalenderShape()
+export default new CalendarShape()

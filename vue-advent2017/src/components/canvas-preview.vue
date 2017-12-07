@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import calender from '../calender.js'
+import calendar from '../calendar.js'
 import { defineFonts, defaults } from '../configs.js'
 
 export default {
@@ -20,7 +20,7 @@ export default {
   methods: {
     setup() {
       this.$nextTick(() => {
-        calender.setup()
+        calendar.setup()
       })
     }
   },
@@ -40,10 +40,10 @@ export default {
     })
   },
   mounted() {
-    calender.load(this.$refs.canvas)
+    calendar.load(this.$refs.canvas)
   },
   beforeDestroy() {
-    calender.destroy()
+    calendar.destroy()
   }
 }
 </script>
