@@ -1,53 +1,77 @@
 <template>
   <div id="control">
-    <button @click="$emit('close')" class="close">×</button>
+    <button @click="$emit('close')"
+            class="close">×</button>
     <dl>
       <dt>カレンダー</dt>
       <dd class="rows">
-        <my-select :options="yearOptions" v-model.number="year" layout="inline" width="60px" key="hoge"></my-select>
+        <my-select :options="yearOptions"
+                   v-model.number="year"
+                   layout="inline"
+                   width="60px"
+                   key="hoge"/>
         <label>年</label>
-        <my-select :options="monthOptions" v-model.number="month" layout="inline" width="40px"></my-select>
+        <my-select :options="monthOptions"
+                   v-model.number="month"
+                   layout="inline"
+                   width="40px"/>
         <label>年</label>
       </dd>
       <dt>文字背景色</dt>
       <dd>
-        <label>日曜 <input type="color" v-model="bgColorSun"></label>
-        <label>平日 <input type="color" v-model="bgColor"></label>
-        <label>土曜 <input type="color" v-model="bgColorSat"></label>
+        <label>日曜
+          <input type="color"
+                 v-model="bgColorSun"></label>
+        <label>平日
+          <input type="color"
+                 v-model="bgColor"></label>
+        <label>土曜
+          <input type="color"
+                 v-model="bgColorSat"></label>
       </dd>
       <dt>文字色</dt>
       <dd>
-        <label>日曜 <input type="color" v-model="textColorSun"></label>
-        <label>平日 <input type="color" v-model="textColor"></label>
-        <label>土曜 <input type="color" v-model="textColorSat"></label>
+        <label>日曜
+          <input type="color"
+                 v-model="textColorSun"></label>
+        <label>平日
+          <input type="color"
+                 v-model="textColor"></label>
+        <label>土曜
+          <input type="color"
+                 v-model="textColorSat"></label>
       </dd>
       <dt>背景画像</dt>
       <dd>
-        <my-select :options="imageOptions" v-model="image">
-          {{ imageOptions[image].label }}
-        </my-select>
+        <my-select :options="imageOptions"
+                   v-model="image">{{ imageOptions[image].label }}</my-select>
       </dd>
       <dt>フォント</dt>
       <dd>
-        <my-select :options="fontOptions" v-model="font">
-          <span slot="option" slot-scope="{val}" :style="{'font-family':fontLabel(val)}">
-            {{ fontLabel(val) }}
-          </span>
+        <my-select :options="fontOptions"
+                   v-model="font">
+          <span slot="option"
+                slot-scope="{val}"
+                :style="{'font-family':fontLabel(val)}">{{ fontLabel(val) }}</span>
         </my-select>
       </dd>
     </dl>
-    <button @click="handleDownloadButtonClick" class="button">ファイルを保存</button>
+    <button @click="handleDownloadButtonClick"
+            class="button">ファイルを保存</button>
   </div>
 </template>
 
 <script>
-import MySelect from './my-select.vue'
+import mySelect from './my-select.vue'
 import calendar from '../calendar.js'
 import { defineFonts, defineImages, defaults, options } from '../configs.js'
 import { createRange } from '../utils.js'
 
 export default {
   name: 'CanvasControl',
+  components: {
+    mySelect
+  },
   data() {
     return {
       ...Object.assign({}, defaults)
@@ -129,9 +153,6 @@ export default {
         }
       }
     }
-  },
-  components: {
-    MySelect
   }
 }
 </script>

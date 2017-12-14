@@ -1,12 +1,24 @@
 <template>
-  <div class="wrapper" tabindex="0" @focus="focus=true" @blur="focus=false" @keydown.prevent="handleKeydown" :style="wrapperStyle">
-    <div class="current" @click="focus=true">
+  <div class="wrapper"
+       tabindex="0"
+       @focus="focus=true"
+       @blur="focus=false"
+       @keydown.prevent="handleKeydown"
+       :style="wrapperStyle">
+    <div class="current"
+         @click="focus=true">
       <slot>{{ value }}</slot>
     </div>
     <transition>
-      <ul v-show="focus" :class="listStyle" @click="focus=false">
-        <li v-for="(item, idx) in computedOptions" :key="idx" @click="handleClick(item.value)" :class="{active:isActive(item.value)}">
-          <slot name="option" :val="item.value">{{ item.label }}</slot>
+      <ul v-show="focus"
+          :class="listStyle"
+          @click="focus=false">
+        <li v-for="(item, idx) in computedOptions"
+            :key="idx"
+            @click="handleClick(item.value)"
+            :class="{active:isActive(item.value)}">
+          <slot name="option"
+                :val="item.value">{{ item.label }}</slot>
         </li>
       </ul>
     </transition>
@@ -68,9 +80,6 @@ export default {
     }
   },
   methods: {
-    isActive(value) {
-      return this.value === value
-    },
     handleKeydown(event) {
       switch (event.key) {
         case 'ArrowDown':
@@ -93,6 +102,9 @@ export default {
     },
     handleClick(value) {
       this.$emit('input', value)
+    },
+    isActive(value) {
+      return this.value === value
     }
   }
 }

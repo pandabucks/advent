@@ -3,18 +3,21 @@
     <h1>Nantoka Generator</h1>
     <ul class="view-state">
       <li>
-        <label><input type="checkbox" v-model="isSmall"> 縮小表示</label>
+        <label><input type="checkbox"
+                 v-model="isSmall"> 縮小表示</label>
       </li>
       <li>
-        <button @click="enabledPanel=!enabledPanel" class="button">操作パネル</button>
+        <button @click="enabledPanel=!enabledPanel"
+                class="button">操作パネル</button>
       </li>
     </ul>
     <main>
-      <canvas-preview :isSmall="isSmall"></canvas-preview>
+      <canvas-preview :is-small="isSmall"></canvas-preview>
       <p>ドラッグ＆ドロップで動かせます</p>
     </main>
     <transition>
-      <div id="controlWrapper" v-show="enabledPanel">
+      <div id="controlWrapper"
+           v-show="enabledPanel">
         <canvas-control @close="enabledPanel=false"></canvas-control>
       </div>
     </transition>
@@ -22,10 +25,14 @@
 </template>
 
 <script>
-import CanvasPreview from './components/canvas-preview'
-import CanvasControl from './components/canvas-control'
+import canvasPreview from './components/canvas-preview'
+import canvasControl from './components/canvas-control'
 export default {
   name: 'app',
+  components: {
+    canvasPreview,
+    canvasControl
+  },
   data() {
     return {
       enabledPanel: true,
@@ -38,10 +45,6 @@ export default {
         this.enabledPanel = false
       }
     })
-  },
-  components: {
-    CanvasPreview,
-    CanvasControl
   }
 }
 </script>

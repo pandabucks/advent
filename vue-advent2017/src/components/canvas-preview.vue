@@ -24,6 +24,12 @@ export default {
       })
     }
   },
+  mounted() {
+    calendar.load(this.$refs.canvas)
+  },
+  beforeDestroy() {
+    calendar.destroy()
+  },
   created() {
     WebFont.load({
       google: {
@@ -38,12 +44,6 @@ export default {
         this.setup()
       }
     })
-  },
-  mounted() {
-    calendar.load(this.$refs.canvas)
-  },
-  beforeDestroy() {
-    calendar.destroy()
   }
 }
 </script>
